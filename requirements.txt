@@ -1,0 +1,6 @@
+tflite-runtime
+opencv-python-headless
+numpy
+pillow
+Flask
+gunicorn
