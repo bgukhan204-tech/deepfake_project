@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepShield — AI Deepfake & Manipulation Detector</title>
+    <meta name="description" content="Detect AI-generated images, deepfakes, and manipulated videos using advanced ELA and deep learning analysis.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <div class="page-wrapper">
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <div class="brand-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <span>DeepShield</span>
+            </div>
+            <div class="nav-badge">
+                <span class="badge-dot"></span>
+                AI + ELA Active
+            </div>
+        </nav>
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-tag">Multi-Modal Detection Engine</div>
+            <h1>Detect Deepfakes,<br><span class="gradient-text">AI Images & Edits</span></h1>
+            <p class="hero-desc">Dual-layer analysis: our Deep Learning model detects face-swaps while Error Level Analysis catches AI-generated content and pixel manipulation.</p>
+
+            <!-- Detection capabilities -->
+            <div class="capability-pills">
+                <span class="pill">🤖 AI-Generated Images</span>
+                <span class="pill">🎭 Face Swaps</span>
+                <span class="pill">✂️ Edited Photos</span>
+                <span class="pill">🎬 Videos</span>
+            </div>
+        </section>
+
+        <!-- Main Card -->
+        <div class="main-card">
+
+            <!-- Tab Switcher -->
+            <div class="tab-bar">
+                <button class="tab active" id="tab-image" onclick="switchTab('image')">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                    </svg>
+                    Image Analysis
+                </button>
+                <button class="tab" id="tab-video" onclick="switchTab('video')">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+                    </svg>
+                    Video Analysis
+                </button>
+            </div>
+
+            <!-- ── IMAGE TAB ────────────────────────── -->
+            <div id="panel-image">
+                <div class="upload-zone" id="upload-zone">
+                    <input type="file" id="file-input" accept="image/*" hidden>
+                    <div class="upload-idle" id="upload-idle">
+                        <div class="upload-icon-ring">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                            </svg>
+                        </div>
+                        <p class="upload-title">Drop image here</p>
+                        <p class="upload-subtitle">PNG, JPG, WEBP • Detect AI images, deepfakes & edits</p>
+                        <button class="btn-secondary" onclick="document.getElementById('file-input').click()">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                            </svg>
+                            Choose Image
+                        </button>
+                    </div>
+                    <div class="upload-preview hidden" id="upload-preview">
+                        <img id="image-preview" src="" alt="Preview">
+                        <div class="preview-overlay">
+                            <button class="btn-icon" onclick="document.getElementById('file-input').click()">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                </svg>
+                                Change
+                            </button>
+                            <button class="btn-icon btn-icon-danger" id="remove-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                </svg>
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="analyze-btn" class="btn-analyze" disabled>
+                    <span id="btn-default">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+                        </svg>
+                        Analyze Image
+                    </span>
+                    <span id="btn-loading" class="hidden">
+                        <span class="spinner"></span> Analyzing…
+                    </span>
+                </button>
+
+                <div class="error-alert hidden" id="error-alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                    </svg>
+                    <span id="error-text"></span>
+                </div>
+
+                <!-- Image Results -->
+                <div class="results-panel hidden" id="results-panel">
+                    <div class="results-header">
+                        <h2>Analysis Results</h2>
+                        <div class="confidence-pill"><span id="confidence-value">0</span>% confidence</div>
+                    </div>
+
+                    <div class="verdict-banner" id="verdict-banner">
+                        <div class="verdict-left">
+                            <div class="verdict-status-icon" id="verdict-status-icon"></div>
+                            <div>
+                                <div class="verdict-label">Verdict</div>
+                                <div class="verdict-title" id="verdict-title">—</div>
+                            </div>
+                        </div>
+                        <div class="verdict-mono" id="verdict-mono-text">—</div>
+                    </div>
+
+                    <!-- Reason for Verdict -->
+                    <div class="reason-panel" style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px; margin-top:12px;">
+                        <div class="reason-title" style="font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; color:var(--text-muted); font-family:var(--font-mono); margin-bottom:8px;">Context & Reason</div>
+                        <p id="verdict-reason" class="reason-text" style="font-size:.9rem; line-height:1.6; color:var(--text-dim); margin-top:4px;">Analysis pending...</p>
+                    </div>
+
+                    <!-- Score cards: combined -->
+                    <div class="score-grid">
+                        <div class="score-card score-card-authentic">
+                            <div class="score-card-header"><span class="score-dot dot-green"></span> Authentic</div>
+                            <div class="score-value score-green" id="authentic-value">0%</div>
+                            <div class="score-bar"><div class="score-fill fill-green" id="fill-authentic" style="width:0%"></div></div>
+                        </div>
+                        <div class="score-card score-card-fake">
+                            <div class="score-card-header"><span class="score-dot dot-red"></span> Manipulated</div>
+                            <div class="score-value score-red" id="manipulated-value">0%</div>
+                            <div class="score-bar"><div class="score-fill fill-red" id="fill-manipulated" style="width:0%"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Method Breakdown -->
+                    <div class="breakdown-section">
+                        <div class="breakdown-title">Detection Method Breakdown</div>
+                        <div class="breakdown-grid">
+                            <div class="breakdown-card">
+                                <div class="breakdown-header">
+                                    <span class="breakdown-icon">🧠</span>
+                                    <span>Deep Learning Model</span>
+                                    <span class="breakdown-badge" id="model-badge">—</span>
+                                </div>
+                                <p class="breakdown-desc">Detects face-swap deepfakes by analyzing facial inconsistencies.</p>
+                                <div class="breakdown-bar-row">
+                                    <span>Fake likelihood</span>
+                                    <span id="model-fake-pct">—</span>
+                                </div>
+                                <div class="score-bar"><div class="score-fill fill-red" id="fill-model-fake" style="width:0%"></div></div>
+                            </div>
+                            <div class="breakdown-card">
+                                <div class="breakdown-header">
+                                    <span class="breakdown-icon">🔬</span>
+                                    <span>ELA Analysis</span>
+                                    <span class="breakdown-badge" id="ela-badge">—</span>
+                                </div>
+                                <p class="breakdown-desc">Error Level Analysis detects AI-generated content and pixel edits.</p>
+                                <div class="breakdown-bar-row">
+                                    <span>Manipulation signal</span>
+                                    <span id="ela-pct">—</span>
+                                </div>
+                                <div class="score-bar"><div class="score-fill fill-orange" id="fill-ela" style="width:0%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cybercrime block -->
+                    <div class="cybercrime-block hidden" id="cybercrime-block">
+                        <div class="cybercrime-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z" />
+                            </svg>
+                            <p><strong>Manipulated Content Detected.</strong> This image may be used for fraud, impersonation, or misinformation. Consider reporting it.</p>
+                        </div>
+                        <a href="https://cybercrime.gov.in" target="_blank" rel="noopener noreferrer" class="btn-cybercrime">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                            </svg>
+                            Report to National Cybercrime Portal
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── VIDEO TAB ────────────────────────── -->
+            <div id="panel-video" class="hidden">
+                <div class="upload-zone" id="video-zone">
+                    <input type="file" id="video-input" accept="video/mp4,video/avi,video/quicktime,video/x-matroska,video/webm" hidden>
+                    <div class="upload-idle" id="video-idle">
+                        <div class="upload-icon-ring video-icon-ring">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+                            </svg>
+                        </div>
+                        <p class="upload-title">Drop video here</p>
+                        <p class="upload-subtitle">MP4, AVI, MOV, MKV, WEBM</p>
+                        <button class="btn-secondary" onclick="document.getElementById('video-input').click()">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                            </svg>
+                            Choose Video
+                        </button>
+                    </div>
+                    <div class="video-selected hidden" id="video-selected">
+                        <div class="video-file-display">
+                            <span class="video-file-icon">🎬</span>
+                            <div>
+                                <div class="video-file-name" id="video-file-name">video.mp4</div>
+                                <div class="video-file-size" id="video-file-size">—</div>
+                            </div>
+                            <button class="btn-icon btn-icon-danger" id="video-remove-btn">✕ Remove</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="analyze-video-btn" class="btn-analyze btn-analyze-video" disabled>
+                    <span id="video-btn-default">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+                        </svg>
+                        Analyze Video
+                    </span>
+                    <span id="video-btn-loading" class="hidden">
+                        <span class="spinner"></span> Analyzing frames…
+                    </span>
+                </button>
+
+                <div class="error-alert hidden" id="video-error-alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                    </svg>
+                    <span id="video-error-text"></span>
+                </div>
+
+                <!-- Video Results -->
+                <div class="results-panel hidden" id="video-results-panel">
+                    <div class="results-header">
+                        <h2>Video Analysis Results</h2>
+                        <div class="confidence-pill"><span id="video-confidence-value">0</span>% confidence</div>
+                    </div>
+
+                    <div class="verdict-banner" id="video-verdict-banner">
+                        <div class="verdict-left">
+                            <div class="verdict-status-icon" id="video-verdict-icon"></div>
+                            <div>
+                                <div class="verdict-label">Verdict</div>
+                                <div class="verdict-title" id="video-verdict-title">—</div>
+                            </div>
+                        </div>
+                        <div class="verdict-mono" id="video-verdict-mono">—</div>
+                    </div>
+
+                    <!-- Reason for Verdict (Video) -->
+                    <div class="reason-panel" style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px; margin-top:12px;">
+                        <div class="reason-title" style="font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; color:var(--text-muted); font-family:var(--font-mono); margin-bottom:8px;">Context & Reason</div>
+                        <p id="video-verdict-reason" class="reason-text" style="font-size:.9rem; line-height:1.6; color:var(--text-dim); margin-top:4px;">Video analysis pending...</p>
+                    </div>
+
+                    <!-- Video stats -->
+                    <div class="video-stats-row">
+                        <div class="vid-stat">
+                            <span class="vid-stat-label">Duration</span>
+                            <span class="vid-stat-value" id="video-duration">—</span>
+                        </div>
+                        <div class="vid-stat">
+                            <span class="vid-stat-label">Total Frames</span>
+                            <span class="vid-stat-value" id="video-total-frames">—</span>
+                        </div>
+                        <div class="vid-stat">
+                            <span class="vid-stat-label">Frames Analyzed</span>
+                            <span class="vid-stat-value" id="video-frames-analyzed">—</span>
+                        </div>
+                        <div class="vid-stat">
+                            <span class="vid-stat-label">ELA Score</span>
+                            <span class="vid-stat-value" id="video-ela-score">—</span>
+                        </div>
+                    </div>
+
+                    <!-- Score cards -->
+                    <div class="score-grid">
+                        <div class="score-card score-card-authentic">
+                            <div class="score-card-header"><span class="score-dot dot-green"></span> Authentic</div>
+                            <div class="score-value score-green" id="video-authentic-value">0%</div>
+                            <div class="score-bar"><div class="score-fill fill-green" id="video-fill-authentic" style="width:0%"></div></div>
+                        </div>
+                        <div class="score-card score-card-fake">
+                            <div class="score-card-header"><span class="score-dot dot-red"></span> Manipulated</div>
+                            <div class="score-value score-red" id="video-manipulated-value">0%</div>
+                            <div class="score-bar"><div class="score-fill fill-red" id="video-fill-manipulated" style="width:0%"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Frame timeline -->
+                    <div class="timeline-section">
+                        <div class="breakdown-title">Frame-by-Frame Timeline</div>
+                        <div class="timeline" id="frame-timeline"></div>
+                        <div class="timeline-legend">
+                            <span><span class="tl-dot tl-real"></span>Real</span>
+                            <span><span class="tl-dot tl-fake"></span>Manipulated</span>
+                        </div>
+                    </div>
+
+                    <!-- Cybercrime for video -->
+                    <div class="cybercrime-block hidden" id="video-cybercrime-block">
+                        <div class="cybercrime-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z" />
+                            </svg>
+                            <p><strong>Manipulated Video Detected.</strong> This video may have been deepfaked or digitally altered.</p>
+                        </div>
+                        <a href="https://cybercrime.gov.in" target="_blank" rel="noopener noreferrer" class="btn-cybercrime">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                            </svg>
+                            Report to National Cybercrime Portal
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /main-card -->
+
+        <footer class="page-footer">
+            <span>DeepShield AI • Dual-Engine Detection (ELA + Deep Learning) • For investigative use only</span>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
