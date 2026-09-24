@@ -1,4 +1,11 @@
 dataset/
 venv/
+node_modules/
 *.h5
 __pycache__/
+*.log
+*.err
+*.db
+.env
+dist/
+build/

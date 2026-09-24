@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DeepShield AI — REST API Documentation</title>
+    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@4.15.5/swagger-ui.css">
+    <style>
+        body { margin: 0; padding: 0; background: #0b0f19; }
+        .swagger-ui .topbar { display: none; }
+        .swagger-ui { background: #0b0f19; color: #f3f4f6; }
+        .swagger-ui .info .title { color: #6366f1; }
+        .swagger-ui .opblock .opblock-summary-method { border-radius: 6px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div id="swagger-ui"></div>
+    <script src="https://unpkg.com/swagger-ui-dist@4.15.5/swagger-ui-bundle.js"></script>
+    <script>
+        window.onload = () => {
+            window.ui = SwaggerUIBundle({
+                url: '/api/v1/openapi.json',
+                dom_id: '#swagger-ui',
+                deepLinking: true,
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIBundle.SwaggerUIStandalonePreset
+                ]
+            });
+        };
+    </script>
+</body>
+</html>
